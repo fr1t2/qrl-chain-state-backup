@@ -2,7 +2,6 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/c26dfce5082b434ea1feea5dfd95a81f)](https://www.codacy.com/gh/fr1t2/qrl-chain-state-backup/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fr1t2/qrl-chain-state-backup&amp;utm_campaign=Badge_Grade)[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c26dfce5082b434ea1feea5dfd95a81f)](https://www.codacy.com/gh/fr1t2/qrl-chain-state-backup/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fr1t2/qrl-chain-state-backup&amp;utm_campaign=Badge_Grade)
 
-
 Backup blockchain state files to DigitalOcean spaces for serving through QRL.CO.IN for bootstrapping QRL nodes for faster spin-up and testing.  
 
 The chain data is served from a link out of digital ocean https://cloud.digitalocean.com/spaces/qrl-chain and hosted on https://qrl.co.in/chain for the public to download.
@@ -11,13 +10,13 @@ Including the [QRL_bootstrap](https://github.com/0xFF0/QRL_bootstrap.git) sub-mo
 
 ## Setup
 
-1. Clone the repo including submodules: `git clone --recurse-submodules https://github.com/fr1t2/qrl-chain-state-backup.git`
+1.  Clone the repo including submodules: `git clone --recurse-submodules https://github.com/fr1t2/qrl-chain-state-backup.git`
 
 OR
 
-1. Clone the repo: `git clone https://github.com/fr1t2/qrl-chain-state-backup.git`
-2. Install the sub-module: `git submodule init`
-3. Update the sub-module: `git submodule update`
+1.  Clone the repo: `git clone https://github.com/fr1t2/qrl-chain-state-backup.git`
+2.  Install the sub-module: `git submodule init`
+3.  Update the sub-module: `git submodule update`
 
 ### Confgiurations
 
