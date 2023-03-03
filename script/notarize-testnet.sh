@@ -41,9 +41,9 @@ if [[ ! -f "$QRL_DIR"/"$QRL_WALLET" ]]; then
   echo "[$(date -u)] Wallet not found! Generating New Address at $QRL_DIR/$QRL_WALLET" | tee -a "$BOOTSTRAP_LOGS"
   sudo -H -u "$user" qrl-cli create-wallet -f "$QRL_DIR"/"$QRL_WALLET" -h 14 # generate qrl address using the qrl-cli, tree height 14
   wallet_success=$?
-  echo "["`date`"] create-wallet exit code: $wallet_success" | tee -a "$BOOTSTRAP_LOGS"
+  echo "[$(date)] create-wallet exit code: $wallet_success" | tee -a "$BOOTSTRAP_LOGS"
   if [[ "$wallet_success" = "1" ]]; then
-    echo "["`date`"] ERROR: generate-wallet failure!" | tee -a "$BOOTSTRAP_LOGS"
+    echo "[$(date)] ERROR: generate-wallet failure!" | tee -a "$BOOTSTRAP_LOGS"
     exit 1
   fi
 fi
@@ -52,24 +52,24 @@ QRL_ADDRESS="$(cat $QRL_DIR/$QRL_WALLET |jq .[0].address | tr -d '"')"
 echo "[$(date -u)] QRL Address: $QRL_ADDRESS" |tee -a "$BOOTSTRAP_LOGS"
 
 # Get next OTS
-OTS_KEY="$(sudo -H -u $user qrl-cli ots $QRL_ADDRESS -t -j |grep next_key |jq .[0].next_key)"
+OTS_KEY="$(sudo -H -u "$user" qrl-cli ots "$QRL_ADDRESS" -t -j |grep next_key |jq .[0].next_key)"
 echo "[$(date -u)] Next unused OTS key: $OTS_KEY" |tee -a "$BOOTSTRAP_LOGS"
 
 # Get shasum of file
-SHASUM="$(sha256sum $CHECKSUM_FILE | awk '{print $1}')"
+SHASUM="$(sha256sum "$CHECKSUM_FILE" | awk '{print $1}')"
 echo "[$(date -u)] sha256sum: $SHASUM" |tee -a "$BOOTSTRAP_LOGS"
 echo "[$(date -u)] Notarizing file on-chain" |tee -a "$BOOTSTRAP_LOGS"
 
 # Notarize shasum of checksum file
-NOTARIZE="$(sudo -H -u $user qrl-cli notarize $SHASUM -t -M "https://qrl.co.in/chain/ Testnet Checksums" -w $QRL_DIR/$QRL_WALLET -i $OTS_KEY -j )"
+NOTARIZE="$(sudo -H -u "$user" qrl-cli notarize $SHASUM -t -M "https://qrl.co.in/chain/ Testnet Checksums" -w $QRL_DIR/$QRL_WALLET -i $OTS_KEY -j )"
 echo "[$(date -u)] Notarization complete:" |tee -a "$BOOTSTRAP_LOGS"
 # Generate stats file
-TXID="$(echo $NOTARIZE |jq .[0].tx_id | tr -d '"')"
+TXID="$(echo "$NOTARIZE" |jq .[0].tx_id | tr -d '"')"
 echo "[$(date -u)] QRL Transaction ID: $TXID" |tee -a "$BOOTSTRAP_LOGS"
 echo "[$(date -u)] Transaction Verification: https://testnet-explorer.theqrl.org/tx/$TXID" |tee -a "$BOOTSTRAP_LOGS"
 
 # Grab the chain state
-CHAIN_STATE="$(sudo -H -u $user /home/$user/.local/bin/qrl --json --port_pub 19019 state)"
+CHAIN_STATE="$(sudo -H -u "$user" /home/"$user"/.local/bin/qrl --json --port_pub 19019 state)"
 
 # remove the old stats file
 if [ -f "$STATS_FILE" ]; then
@@ -82,24 +82,24 @@ cat << EoF > "$STATS_FILE"
 [
     {"info":
         { 
-            "blockHeight": "$(echo $CHAIN_STATE |jq .info.blockHeight),"
-            "blockLastHash": "$(echo $CHAIN_STATE |jq .info.blockLastHash),"
-            "networkId": "$(echo $CHAIN_STATE |jq .info.networkId),"
-            "numConnections": "$(echo $CHAIN_STATE |jq .info.numConnections), "
-            "numKnownPeers": "$(echo $CHAIN_STATE |jq .info.numKnownPeers), "
-            "state": "$(echo $CHAIN_STATE |jq .info.state), "
-            "uptime": "$(echo $CHAIN_STATE |jq .info.uptime), "
-            "version": "$(echo $CHAIN_STATE |jq .info.version) "
+            "blockHeight": "$(echo "$CHAIN_STATE" |jq .info.blockHeight),"
+            "blockLastHash": "$(echo "$CHAIN_STATE" |jq .info.blockLastHash),"
+            "networkId": "$(echo "$CHAIN_STATE" |jq .info.networkId),"
+            "numConnections": "$(echo "$CHAIN_STATE" |jq .info.numConnections),"
+            "numKnownPeers": "$(echo "$CHAIN_STATE" |jq .info.numKnownPeers),"
+            "state": "$(echo "$CHAIN_STATE" |jq .info.state), 
+            "uptime": "$(echo "$CHAIN_STATE" |jq .info.uptime),"
+            "version": "$(echo "$CHAIN_STATE" |jq .info.version)"
         } 
     },
     {"Unix_Timestamp": "$(date +%s)" },
-    {"Uncompressed_Chain_Size": "$(du -hs $BACKUP_PATH/$NET_NAME/state | awk '{print $1}')" },
+    {"Uncompressed_Chain_Size": "$(du -hs "$BACKUP_PATH"/"$NET_NAME"/state | awk '{print $1}')" },
     {"Tar_FileSize": "$(stat -c%s "$BOOTSTRAP_FILE" | numfmt --to iec)" },
     {"address": "$QRL_ADDRESS", "tx_id": "$TXID", "validation":"https://testnet-explorer.theqrl.org/tx/$TXID"}
 ]
 EoF
 
-echo "[$(date -u)] QRL $NET_NAME Chain StateFile Created" |tee -a "$BOOTSTRAP_LOGS"
+echo "[$(date -u)] QRL "$NET_NAME" Chain StateFile Created" |tee -a "$BOOTSTRAP_LOGS"
 
 
 
