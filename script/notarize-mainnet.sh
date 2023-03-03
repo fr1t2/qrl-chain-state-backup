@@ -21,14 +21,14 @@ NET_NAME=Mainnet
 BACKUP_PATH="/home/$user/qrl-chain-state-backup/qrl_bootstrap_files"
 QRL_DIR="/home/$user/.qrl"
 QRL_WALLET=wallet.json
-BOOTSTRAP_FILE="$BACKUP_PATH/$NET_NAME/QRL_"$NET_NAME"_State.tar.gz"
+BOOTSTRAP_FILE="$BACKUP_PATH/$NET_NAME/QRL_$NET_NAME_State.tar.gz"
 STATS_FILE="$BACKUP_PATH/$NET_NAME/QRL_Node_Stats.json"
-CHECKSUM_FILE="$BACKUP_PATH/$NET_NAME/"$NET_NAME"_State_Checksums.txt"
+CHECKSUM_FILE="$BACKUP_PATH/$NET_NAME/$NET_NAME_State_Checksums.txt"
 BOOTSTRAP_LOGS="$BACKUP_PATH/qrl_bootstrap.logs"
 
 echo "[$(date -u)] QRL.CO.IN Notarize Script" |tee -a "$BOOTSTRAP_LOGS"
 echo "----------------------------------------------" | tee -a "$BOOTSTRAP_LOGS" 
-echo "Notarize checksums for "$NET_NAME" bootstrap to Cloud" | tee -a "$BOOTSTRAP_LOGS"  
+echo "Notarize checksums for $NET_NAME bootstrap to Cloud" | tee -a "$BOOTSTRAP_LOGS"  
 echo "----------------------------------------------" | tee -a "$BOOTSTRAP_LOGS"  
 
 # Check for address/wallet and if not found generate
