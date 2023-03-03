@@ -1,0 +1,3 @@
+[submodule "QRL_bootstrap"]
+	path = QRL_bootstrap
+	url = https://github.com/0xFF0/QRL_bootstrap.git
