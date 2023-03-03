@@ -1,4 +1,8 @@
 # qrl-chain-state-backup
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c26dfce5082b434ea1feea5dfd95a81f)](https://www.codacy.com/gh/fr1t2/qrl-chain-state-backup/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fr1t2/qrl-chain-state-backup&amp;utm_campaign=Badge_Grade)[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c26dfce5082b434ea1feea5dfd95a81f)](https://www.codacy.com/gh/fr1t2/qrl-chain-state-backup/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fr1t2/qrl-chain-state-backup&amp;utm_campaign=Badge_Grade)
+
+
 Backup blockchain state files to DigitalOcean spaces for serving through QRL.CO.IN for bootstrapping QRL nodes for faster spin-up and testing.  
 
 The chain data is served from a link out of digital ocean https://cloud.digitalocean.com/spaces/qrl-chain and hosted on https://qrl.co.in/chain for the public to download.
