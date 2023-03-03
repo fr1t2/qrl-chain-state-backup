@@ -96,7 +96,7 @@ python3 $REALPATH/QRL_bootstrap/verify_leveldb.py $BACKUP_PATH/$NET_NAME/ | tee 
 
 if [ "$?" != "0" ]; then
     echo "["`date -u`"] Discovered backup corruption! Attempting to repair!"  | tee -a $BOOTSTRAP_LOGS
-    mv "QRL_"$NET_NAME"_State.tar.gz" "QRL_"$NET_NAME"_State-BAD.tar.gz" 
+    mv "QRL_$NET_NAME_State.tar.gz" "QRL_$NET_NAME_State-BAD.tar.gz" 
     
 else
     echo "["`date -u`"] Backup passed corruption verification!"  | tee -a $BOOTSTRAP_LOGS
