@@ -48,7 +48,7 @@ if [[ ! -f "$QRL_DIR"/"$QRL_WALLET" ]]; then
   fi
 fi
 
-QRL_ADDRESS="$(cat "$QRL_DIR"/"$QRL_WALLET" |jq .[0].address | tr -d '"')"
+QRL_ADDRESS="$(jq -f "$QRL_DIR"/"$QRL_WALLET" .[0].address | tr -d '"')"
 echo "[$(date -u)] QRL Address: $QRL_ADDRESS" |tee -a "$BOOTSTRAP_LOGS"
 
 # Get next OTS
@@ -99,7 +99,7 @@ cat << EoF > "$STATS_FILE"
 ]
 EoF
 
-echo "[$(date -u)] QRL "$NET_NAME" Chain StateFile Created" |tee -a "$BOOTSTRAP_LOGS"
+echo "[$(date -u)] QRL $NET_NAME Chain StateFile Created" |tee -a "$BOOTSTRAP_LOGS"
 
 
 

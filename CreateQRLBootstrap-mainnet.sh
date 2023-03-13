@@ -10,7 +10,7 @@ ATTEMPTS=10  # Max Backup Attempts on failure
 BOOTSTRAP_FILE_NAME=QRL_"$NET_NAME"_State.tar.gz
 CHECKSUM_FILE="$BACKUP_PATH"/"$NET_NAME"/"$NET_NAME"_State_Checksums.txt
 VERSION="v1.0"
-REALPATH="$(dirname $(realpath $0) )"
+REALPATH="$(dirname "$(realpath "$0")" )"
 
 echo "----------------------------------------------" | tee -a "$BOOTSTRAP_LOGS" 
 echo "Create QRL bootstrap $VERSION" | tee -a "$BOOTSTRAP_LOGS"  
@@ -37,7 +37,7 @@ attempts="$ATTEMPTS"
 while [ "$attempts" -gt 0 ]; do
  
   MANIFEST_FILE="$(ls $QRL_DATA/MANIFEST-*)"
-  MANIFEST_MD5="$(md5sum $MANIFEST_FILE)"
+  MANIFEST_MD5="$(md5sum "$MANIFEST_FILE")"
   echo "[$(date -u)] MD5 manifest file: $MANIFEST_MD5" | tee -a "$BOOTSTRAP_LOGS"
 
   echo "[$(date -u)] Starting Rsync." | tee -a "$BOOTSTRAP_LOGS" 
@@ -46,7 +46,7 @@ while [ "$attempts" -gt 0 ]; do
   echo "[$(date)] Rsync exit code: $copy_success" | tee -a "$BOOTSTRAP_LOGS"
 
   MANIFEST_FILE_POST_BACKUP="$(ls $QRL_DATA/MANIFEST-*)"
-  MANIFEST_MD5_POST_BACKUP="$(md5sum $MANIFEST_FILE_POST_BACKUP)"
+  MANIFEST_MD5_POST_BACKUP="$(md5sum "$MANIFEST_FILE_POST_BACKUP")"
   echo "[$(date -u)] MD5 manifest file post backup: $MANIFEST_MD5_POST_BACKUP" | tee -a "$BOOTSTRAP_LOGS"
   
   if [ "$MANIFEST_MD5" = "$MANIFEST_MD5_POST_BACKUP" ] && [ "$copy_success" = "0" ]; then
@@ -121,11 +121,11 @@ else
     
     echo -------- SHA-256 Sum -------- | tee -a "$CHECKSUM_FILE"
     sha256=($(sha256sum "$BACKUP_PATH"/"$NET_NAME"/"$BOOTSTRAP_FILE_NAME"))
-    echo $sha256 | tee -a "$CHECKSUM_FILE"
+    echo "$sha256" | tee -a "$CHECKSUM_FILE"
     echo | tee -a "$CHECKSUM_FILE"
     
     echo Verify from linux cli with: | tee -a "$CHECKSUM_FILE"
-    echo sha256sum $BOOTSTRAP_FILE_NAME | tee -a "$CHECKSUM_FILE"
+    echo sha256sum "$BOOTSTRAP_FILE_NAME" | tee -a "$CHECKSUM_FILE"
     echo | tee -a "$CHECKSUM_FILE"
 
     echo -------- MD5 Sum -------- | tee -a "$CHECKSUM_FILE"
@@ -134,7 +134,7 @@ else
     echo | tee -a "$CHECKSUM_FILE"
     
     echo Verify from linux cli with: | tee -a "$CHECKSUM_FILE"
-    echo md5sum  $BOOTSTRAP_FILE_NAME | tee -a "$CHECKSUM_FILE"
+    echo md5sum  "$BOOTSTRAP_FILE_NAME" | tee -a "$CHECKSUM_FILE"
     echo | tee -a "$CHECKSUM_FILE"    
     
     cat "$CHECKSUM_FILE" >> "$BOOTSTRAP_LOGS"

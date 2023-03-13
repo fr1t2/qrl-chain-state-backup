@@ -20,7 +20,7 @@ CHECKSUM_FILE="$BACKUP_PATH/$NET_NAME/$NET_NAME_State_Checksums.txt"
 BOOTSTRAP_LOGS="$BACKUP_PATH/qrl_bootstrap.logs"
 
 echo "----------------------------------------------" | tee -a "$BOOTSTRAP_LOGS" 
-echo "Upload QRL "$NET_NAME "bootstrap to Cloud" | tee -a "$BOOTSTRAP_LOGS"  
+echo "Upload QRL $NET_NAME bootstrap to Cloud" | tee -a "$BOOTSTRAP_LOGS"  
 echo "----------------------------------------------" | tee -a "$BOOTSTRAP_LOGS"  
 
 # add upload to Digital Ocean spaces here

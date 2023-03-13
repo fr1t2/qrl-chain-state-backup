@@ -18,7 +18,7 @@ OR
 2.  Install the sub-module: `git submodule init`
 3.  Update the sub-module: `git submodule update`
 
-### Confgiurations
+### Configurations
 
 Edit the configurations for each script to include any user or directory related changes throughout the scripts.
 
