@@ -56,7 +56,7 @@ OTS_KEY="$(sudo -H -u "$user" qrl-cli ots "$QRL_ADDRESS" -m -j |grep next_key |j
 echo "[$(date -u)] Next unused OTS key: $OTS_KEY" |tee -a "$BOOTSTRAP_LOGS"
 
 # Get shasum of file
-SHASUM="$(sha256sum $CHECKSUM_FILE | awk '{print $1}')"
+SHASUM="$(sha256sum $CHECKSUM_FILE | awk '{print "$1"}')"
 echo "[$(date -u)] sha256sum: $SHASUM" |tee -a "$BOOTSTRAP_LOGS"
 echo "[$(date -u)] Notarizing file on-chain" |tee -a "$BOOTSTRAP_LOGS"
 
@@ -93,13 +93,13 @@ cat << EoF > "$STATS_FILE"
         } 
     },
     {"Unix_Timestamp": "$(date +%s)" },
-    {"Uncompressed_Chain_Size": "$(du -hs "$BACKUP_PATH"/"$NET_NAME"/state | awk '{print $1}')" },
+    {"Uncompressed_Chain_Size": "$(du -hs "$BACKUP_PATH"/"$NET_NAME"/state | awk '{print "$1"}')" },
     {"Tar_FileSize": "$(stat -c%s "$BOOTSTRAP_FILE" | numfmt --to iec)" },
     {"address": "$QRL_ADDRESS", "tx_id": "$TXID", "validation":"https://explorer.theqrl.org/tx/$TXID"}
 ]
 EoF
 
-echo "[$(date -u)] QRL $NET_NAME Chain StateFile Created" |tee -a "$BOOTSTRAP_LOGS"
+echo "[$(date -u)] QRL "$NET_NAME" Chain StateFile Created" |tee -a "$BOOTSTRAP_LOGS"
 
 
 

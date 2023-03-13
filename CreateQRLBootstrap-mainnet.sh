@@ -129,8 +129,8 @@ else
     echo | tee -a "$CHECKSUM_FILE"
 
     echo -------- MD5 Sum -------- | tee -a "$CHECKSUM_FILE"
-    md5=($(md5sum "$BACKUP_PATH"/"$NET_NAME"/"$BOOTSTRAP_FILE_NAME"))
-    echo $md5 | tee -a "$CHECKSUM_FILE"
+    md5=("$(md5sum "$BACKUP_PATH"/"$NET_NAME"/"$BOOTSTRAP_FILE_NAME")")
+    echo "$md5" | tee -a "$CHECKSUM_FILE"
     echo | tee -a "$CHECKSUM_FILE"
     
     echo Verify from linux cli with: | tee -a "$CHECKSUM_FILE"
