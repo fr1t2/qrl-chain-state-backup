@@ -64,7 +64,7 @@ echo "[$(date -u)] Notarizing file on-chain" |tee -a "$BOOTSTRAP_LOGS"
 NOTARIZE="$(sudo -H -u "$user" qrl-cli notarize "$SHASUM" -m -M "https://qrl.co.in/chain/ Mainnet Checksums" -w "$QRL_DIR"/"$QRL_WALLET" -i "$OTS_KEY" -j )"
 echo "[$(date -u)] Notarization complete:" |tee -a "$BOOTSTRAP_LOGS"
 # Generate stats file
-TXID="$(echo $NOTARIZE |jq .[0].tx_id | tr -d '"')"
+TXID="$(echo "$NOTARIZE" |jq .[0].tx_id | tr -d '"')"
 echo "[$(date -u)] QRL Transaction ID: $TXID" |tee -a "$BOOTSTRAP_LOGS"
 echo "[$(date -u)] Transaction Verification: https://explorer.theqrl.org/tx/$TXID" |tee -a "$BOOTSTRAP_LOGS"
 
