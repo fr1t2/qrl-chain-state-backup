@@ -8,7 +8,7 @@ BACKUP_PATH=/home/"$user"/qrl-chain-state-backup/qrl_bootstrap_files
 BOOTSTRAP_LOGS="$BACKUP_PATH"/qrl_bootstrap.logs
 
 echo "----------------------------------------------" | tee -a "$BOOTSTRAP_LOGS" 
-echo "["$(date -u)"] QRL.CO.IN Testnet Backup" |tee -a "$BOOTSTRAP_LOGS"
+echo "[$(date -u)] QRL.CO.IN Testnet Backup" |tee -a "$BOOTSTRAP_LOGS"
 echo "Backup, Notarize and upload for Testnet" | tee -a "$BOOTSTRAP_LOGS"  
 echo "----------------------------------------------" | tee -a "$BOOTSTRAP_LOGS"  
 
