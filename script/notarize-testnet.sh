@@ -49,15 +49,15 @@ if [[ ! -f "$QRL_DIR"/"$QRL_WALLET" ]]; then
 fi
 
 QRL_ADDRESS="$(jq -f "$QRL_DIR"/"$QRL_WALLET" .[0].address | tr -d '"')"
-echo "[$(date -u)] QRL Address: "$QRL_ADDRESS"" |tee -a "$BOOTSTRAP_LOGS"
+echo "[$(date -u)] QRL Address: $QRL_ADDRESS" |tee -a "$BOOTSTRAP_LOGS"
 
 # Get next OTS
 OTS_KEY="$(sudo -H -u "$user" qrl-cli ots "$QRL_ADDRESS" -t -j |grep next_key |jq .[0].next_key)"
-echo "[$(date -u)] Next unused OTS key: "$OTS_KEY"" |tee -a "$BOOTSTRAP_LOGS"
+echo "[$(date -u)] Next unused OTS key: $OTS_KEY" |tee -a "$BOOTSTRAP_LOGS"
 
 # Get shasum of file
 SHASUM="$(sha256sum "$CHECKSUM_FILE" | awk '{print $1}')"
-echo "[$(date -u)] sha256sum: "$SHASUM"" |tee -a "$BOOTSTRAP_LOGS"
+echo "[$(date -u)] sha256sum: $SHASUM" |tee -a "$BOOTSTRAP_LOGS"
 echo "[$(date -u)] Notarizing file on-chain" |tee -a "$BOOTSTRAP_LOGS"
 
 # Notarize shasum of checksum file
@@ -65,7 +65,7 @@ NOTARIZE="$(sudo -H -u "$user" qrl-cli notarize "$SHASUM" -t -M "https://qrl.co.
 echo "[$(date -u)] Notarization complete:" |tee -a "$BOOTSTRAP_LOGS"
 # Generate stats file
 TXID="$(echo "$NOTARIZE" |jq .[0].tx_id | tr -d '"')"
-echo "[$(date -u)] QRL Transaction ID: "$TXID"" |tee -a "$BOOTSTRAP_LOGS"
+echo "[$(date -u)] QRL Transaction ID: $TXID" |tee -a "$BOOTSTRAP_LOGS"
 echo "[$(date -u)] Transaction Verification: https://testnet-explorer.theqrl.org/tx/$TXID" |tee -a "$BOOTSTRAP_LOGS"
 
 # Grab the chain state
@@ -77,7 +77,7 @@ if [ -f "$STATS_FILE" ]; then
   rm -rf "$STATS_FILE"
 fi
 
-echo "[$(date -u)] Writing NEW stats file to: "$STATS_FILE"" | tee -a "$BOOTSTRAP_LOGS"  
+echo "[$(date -u)] Writing NEW stats file to: $STATS_FILE" | tee -a "$BOOTSTRAP_LOGS"  
 cat << EoF > "$STATS_FILE"
 [
     {"info":
@@ -99,7 +99,7 @@ cat << EoF > "$STATS_FILE"
 ]
 EoF
 
-echo "[$(date -u)] QRL "$NET_NAME" Chain StateFile Created" |tee -a "$BOOTSTRAP_LOGS"
+echo "[$(date -u)] QRL $NET_NAME Chain StateFile Created" |tee -a "$BOOTSTRAP_LOGS"
 
 
 
