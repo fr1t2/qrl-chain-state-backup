@@ -52,7 +52,7 @@ QRL_ADDRESS="$(jq -f $QRL_DIR/$QRL_WALLET .[0].address | tr -d '"')"
 echo "[$(date -u)] QRL Address: $QRL_ADDRESS" |tee -a "$BOOTSTRAP_LOGS"
 
 # Get next OTS
-OTS_KEY="$(sudo -H -u $user qrl-cli ots $QRL_ADDRESS -m -j |grep next_key |jq .[0].next_key)"
+OTS_KEY="$(sudo -H -u "$user" qrl-cli ots "$QRL_ADDRESS" -m -j |grep next_key |jq .[0].next_key)"
 echo "[$(date -u)] Next unused OTS key: $OTS_KEY" |tee -a "$BOOTSTRAP_LOGS"
 
 # Get shasum of file
